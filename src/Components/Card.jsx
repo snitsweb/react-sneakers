@@ -1,13 +1,13 @@
-function Card() {
+function Card(props) {
     return (
         <div className="content-card">
             <div className="card-like-btn">
                 <img src="/img/card-unliked.svg" alt="Unliked" className="card-like-btn-img"/>
             </div>
-            <img src="/img/sneakers/1.jpg" alt="Adidas" width={133} height={112}
+            <img src={props.img} alt="Adidas" width={133} height={112}
                  className="card-img"/>
             <h4 className="card-title">
-                Mięskie Nike Blazer Mid Suede
+                {props.name}
             </h4>
             <div className="card-footer">
                 <div className="card-price-wr">
@@ -15,7 +15,7 @@ function Card() {
                                                 Cena:
                                             </span>
                     <span className="card-price">
-                                                229 zł.
+                                                {props.price} zł.
                                             </span>
                 </div>
                 <button className="card-btn">
