@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from "axios";
 import Card from "./Components/Card/";
 import Header from "./Components/Header";
 import Drawer from "./Components/Drawer";
@@ -10,15 +11,18 @@ function App() {
     const [cartOpened, setCartOpened] = React.useState(false)
 
     React.useEffect(() => {
-        fetch('https://json.extendsclass.com/bin/f03ec4c858e2').then((res) => {
-            return res.json()
-        }).then((json) => {
-            setItems(json)
+        axios.get('https://60e636ff086f730017a6feca.mockapi.io/items').then((res) => {
+                setItems(res.data)
+            })
+        axios.get('https://60e636ff086f730017a6feca.mockapi.io/cart').then((res) => {
+            console.log(res.data)
+            setCartItems(res.data)
         })
     }, [])
 
     const onAddToCart = (obj) => {
         setCartItems(prev => [...prev, obj])
+        axios.post('https://60e636ff086f730017a6feca.mockapi.io/cart', obj)
     }
 
     const onChangeSearchInput = (event) => {
@@ -39,8 +43,10 @@ function App() {
                                 <h1 className="title">{searchValue ? `Поиск по запросу: ${searchValue}` : 'Wszystkie adidasy'}</h1>
                                 <div className="search-panel">
                                     <img src="/img/search.svg" alt="Search" className="search-icon"/>
-                                    <input onChange={onChangeSearchInput} type="text" value={searchValue} placeholder="Szukaj..."/>
-                                    {searchValue && <img src="/img/remove-active.svg" onClick={() => setSearchValue('')} alt="Clear input" className="clear_btn"/>}
+                                    <input onChange={onChangeSearchInput} type="text" value={searchValue}
+                                           placeholder="Szukaj..."/>
+                                    {searchValue && <img src="/img/remove-active.svg" onClick={() => setSearchValue('')}
+                                                         alt="Clear input" className="clear_btn"/>}
                                 </div>
                             </div>
 
@@ -48,12 +54,12 @@ function App() {
 
                                 {items.filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase())).map(item => (
                                     <Card
-                                        key={item.name+item.price+item.img}
+                                        key={item.name + item.price + item.img}
                                         name={item.name}
                                         price={item.price}
                                         img={item.img}
-                                        onFavourite = {() => console.log('Added to fav')}
-                                        onPlus = {(obj) => onAddToCart(obj)}
+                                        onFavourite={() => console.log('Added to fav')}
+                                        onPlus={(obj) => onAddToCart(obj)}
                                     />
                                 ))}
 

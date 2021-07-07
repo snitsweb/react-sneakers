@@ -10,9 +10,9 @@ function Drawer({onCloseCart, items = []}) {
                 </div>
 
                 <div className="cart-items">
-                    {items.map((item) => {
+                    {items.filter((el) => !(JSON.stringify(el) === '{}')).map((item) => {
                         return (
-                            <div className="cart-item">
+                            <div className="cart-item" key={item.img+item.price+item.name}>
                                 <img src={item.img} alt="" className="cart-item-img"/>
                                 <div className="cart-item-desc">
                                     <p className="cart-item-title">
