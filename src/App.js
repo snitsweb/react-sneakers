@@ -1,77 +1,61 @@
+import React from 'react'
 import Card from "./Components/Card/";
 import Header from "./Components/Header";
 import Drawer from "./Components/Drawer";
 
-const arr = [
-    {
-        name: "Mięskie Nike Blazer Mid Suede",
-        price: 200,
-        img: '/img/sneakers/1.jpg'
-    },
-    {
-        name: "Mięskie Nike Air Max 270 ",
-        price: 220,
-        img: '/img/sneakers/2.jpg'
-    },
-    {
-        name: "Puma X Aka Boku Future Rider",
-        price: 220,
-        img: '/img/sneakers/3.jpg'
-    },
-    {
-        name: "Under Armour Curry 8",
-        price: 180,
-        img: '/img/sneakers/4.jpg'
-    },
-    {
-        name: "Nike Kyrie 7",
-        price: 240,
-        img: '/img/sneakers/5.jpg'
-    },
-    {
-        name: "Jordan Air Jordan 11",
-        price: 350,
-        img: '/img/sneakers/6.jpg'
-    },
-    {
-        name: "Nike LeBron XVIII",
-        price: 110,
-        img: '/img/sneakers/7.jpg'
-    },
-    {
-        name: "Nike Lebron XVIII Low",
-        price: 300,
-        img: '/img/sneakers/8.jpg'
-    }
-]
-
 function App() {
+    const [items, setItems] = React.useState([])
+    const [cartItems, setCartItems] = React.useState([])
+    const [searchValue, setSearchValue] = React.useState('')
+    const [cartOpened, setCartOpened] = React.useState(false)
+
+    React.useEffect(() => {
+        fetch('https://json.extendsclass.com/bin/f03ec4c858e2').then((res) => {
+            return res.json()
+        }).then((json) => {
+            setItems(json)
+        })
+    }, [])
+
+    const onAddToCart = (obj) => {
+        setCartItems(prev => [...prev, obj])
+    }
+
+    const onChangeSearchInput = (event) => {
+        setSearchValue(event.target.value)
+    }
+
     return (
         <div className="wrapper">
-            <Drawer/>
-            <Header/>
+            {cartOpened && <Drawer items={cartItems} onCloseCart={() => setCartOpened(false)}
+            />}
+            <Header onClickCart={() => setCartOpened(true)}/>
             <main>
                 <section className="content">
                     <div className="container">
 
                         <div className="content-inner">
                             <div className="content-title-wrapper">
-                                <h1 className="title">Wszystkie adidasy</h1>
+                                <h1 className="title">{searchValue ? `Поиск по запросу: ${searchValue}` : 'Wszystkie adidasy'}</h1>
                                 <div className="search-panel">
                                     <img src="/img/search.svg" alt="Search" className="search-icon"/>
-                                    <input type="text" placeholder="Szukaj..."/>
+                                    <input onChange={onChangeSearchInput} type="text" value={searchValue} placeholder="Szukaj..."/>
+                                    {searchValue && <img src="/img/remove-active.svg" onClick={() => setSearchValue('')} alt="Clear input" className="clear_btn"/>}
                                 </div>
                             </div>
 
                             <div className="content-cards">
 
-                                {arr.map(obj => (
+                                {items.filter(item => item.name.toLowerCase().includes(searchValue.toLowerCase())).map(item => (
                                     <Card
-                                        name={obj.name}
-                                        price={obj.price}
-                                        img={obj.img}
-                                    />))
-                                }
+                                        key={item.name+item.price+item.img}
+                                        name={item.name}
+                                        price={item.price}
+                                        img={item.img}
+                                        onFavourite = {() => console.log('Added to fav')}
+                                        onPlus = {(obj) => onAddToCart(obj)}
+                                    />
+                                ))}
 
                             </div>
                         </div>

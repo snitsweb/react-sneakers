@@ -1,21 +1,30 @@
 import styles from "./Card.module.scss";
+import React from 'react'
 
-console.log(styles)
+function Card({onFavourite, onPlus, img, price, name}) {
+    const [isAdded, setIsAdded] = React.useState(false)
+    const [isFavourite, setIsFavourite] = React.useState(false)
 
-function Card(props) {
-    const onClickAdd = () => {
-        alert(props.name)
+    const handleAdd = () => {
+        onPlus({img, price, name})
+        setIsAdded(!isAdded)
+    }
+
+    const handleFavourite = () => {
+        onFavourite()
+        setIsFavourite(!isFavourite)
     }
 
     return (
         <div className={styles.content_card}>
-            <div className={styles.card_like_btn}>
-                <img src="/img/card-unliked.svg" alt="Unliked" />
+            <div className={styles.card_like_btn} onClick={handleFavourite}>
+                <img src={isFavourite ? '/img/card-liked.svg' : '/img/card-unliked.svg'} alt="Unliked"
+                     title='Dodaj do listy życzeń'/>
             </div>
-            <img src={props.img} alt="Adidas" width={133} height={112}
+            <img src={img} alt="Adidas" width={133} height={112}
                  className={styles.card_img}/>
             <h4 className={styles.card_title}>
-                {props.name}
+                {name}
             </h4>
             <div className={styles.card_footer}>
                 <div className={styles.card_price_wr}>
@@ -23,11 +32,12 @@ function Card(props) {
                                                 Cena:
                                             </span>
                     <span className={styles.card_price}>
-                                                {props.price} zł.
+                                                {price} zł.
                                             </span>
                 </div>
-                <button className={styles.card_btn} onClick={onClickAdd}>
-                    <img src="/img/btn-add.svg" alt="Add to cart" width={32} height={32}/>
+                <button className={styles.card_btn} onClick={handleAdd}>
+                    <img src={isAdded ? '/img/btn-added.svg' : '/img/btn-add.svg'} alt="Add to cart" width={32}
+                         height={32} title='Dodaj do koszyka'/>
                 </button>
             </div>
         </div>

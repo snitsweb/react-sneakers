@@ -113,15 +113,30 @@ body {
       align-items: center;
       justify-content: center;
       padding: 15px 18px;
+      position: relative;
 
-      input, input:hover, input:active, input:focus, input::placeholder {
+      input, input:hover, input:active, input:focus{
         border: none;
         outline: none;
         margin-left: 14px;
         font-size: 14px;
         line-height: 17px;
-        color: #C4C4C4;
         width: 100%;
+      }
+
+      input::placeholder{
+        color: #C4C4C4;
+      }
+
+      .clear_btn{
+        top: 0;
+        bottom: 0;
+        right: 8px;
+        margin: auto;
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        cursor: pointer;
       }
     }
   }

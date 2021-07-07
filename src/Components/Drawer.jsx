@@ -1,43 +1,29 @@
-function Drawer(){
+function Drawer({onCloseCart, items = []}) {
+
     return (
-        <div style={{display: 'none'}}className="overlay">
+        <div className="overlay">
             <div className="drawer">
                 <div className="title-wrapper">
                     <h2 className="title">Koszyk</h2>
-                    <img src="/img/remove-active.svg" alt="Usuń" className="cart-close" title="Zamknij"/>
+                    <img onClick={onCloseCart} src="/img/remove-active.svg" alt="Usuń" className="cart-close"
+                         title="Zamknij"/>
                 </div>
 
                 <div className="cart-items">
-                    <div className="cart-item">
-                        <img src="/img/sneakers/1.jpg" alt="" className="cart-item-img"/>
-                        <div className="cart-item-desc">
-                            <p className="cart-item-title">
-                                Mięskie Nike Blazer Mid Suede
-                            </p>
-                            <p className="cart-item-price">229 zł.</p>
-                        </div>
-                        <img src="/img/remove-active.svg" alt="Usuń" className="cart-item-remove" title="Usuń"/>
-                    </div>
-                    <div className="cart-item">
-                        <img src="/img/sneakers/1.jpg" alt="" className="cart-item-img"/>
-                        <div className="cart-item-desc">
-                            <p className="cart-item-title">
-                                Mięskie Nike Blazer Mid Suede
-                            </p>
-                            <p className="cart-item-price">229 zł.</p>
-                        </div>
-                        <img src="/img/remove-active.svg" alt="Usuń" className="cart-item-remove"/>
-                    </div>
-                    <div className="cart-item">
-                        <img src="/img/sneakers/1.jpg" alt="" className="cart-item-img"/>
-                        <div className="cart-item-desc">
-                            <p className="cart-item-title">
-                                Mięskie Nike Blazer Mid Suede
-                            </p>
-                            <p className="cart-item-price">229 zł.</p>
-                        </div>
-                        <img src="/img/remove-active.svg" alt="Usuń" className="cart-item-remove"/>
-                    </div>
+                    {items.map((item) => {
+                        return (
+                            <div className="cart-item">
+                                <img src={item.img} alt="" className="cart-item-img"/>
+                                <div className="cart-item-desc">
+                                    <p className="cart-item-title">
+                                        {item.name}
+                                    </p>
+                                    <p className="cart-item-price">{item.price} zł.</p>
+                                </div>
+                                <img src="/img/remove-active.svg" alt="Usuń" className="cart-item-remove" title="Usuń"/>
+                            </div>
+                        )
+                    })}
 
                 </div>
                 <div className="drawer-footer">
