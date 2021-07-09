@@ -1,17 +1,17 @@
 import styles from "./Card.module.scss";
 import React from 'react'
 
-function Card({onFavourite, onPlus, img, price, name}) {
+function Card({onFavourite, onPlus, img, price, name, itemId, id, favourited}) {
     const [isAdded, setIsAdded] = React.useState(false)
-    const [isFavourite, setIsFavourite] = React.useState(false)
+    const [isFavourite, setIsFavourite] = React.useState(favourited)
 
     const handleAdd = () => {
-        onPlus({img, price, name})
+        onPlus({img, price, name, itemId})
         setIsAdded(!isAdded)
     }
 
     const handleFavourite = () => {
-        onFavourite()
+        onFavourite({img, price, name, itemId, id})
         setIsFavourite(!isFavourite)
     }
 
@@ -21,8 +21,7 @@ function Card({onFavourite, onPlus, img, price, name}) {
                 <img src={isFavourite ? '/img/card-liked.svg' : '/img/card-unliked.svg'} alt="Unliked"
                      title='Dodaj do listy życzeń'/>
             </div>
-            <img src={img} alt="Adidas" width={133} height={112}
-                 className={styles.card_img}/>
+            <img src={img} alt="Adidas" width={133} height={112}/>
             <h4 className={styles.card_title}>
                 {name}
             </h4>
