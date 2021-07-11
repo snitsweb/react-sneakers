@@ -33,7 +33,7 @@ function Drawer({onCloseCart, onRemove, items = []}) {
                                         <p className="cart-item-price">{item.price} zł.</p>
                                     </div>
                                     <img onClick={() => {
-                                        onRemove(item.itemId)
+                                        onRemove(item)
                                     }} src="/img/remove-active.svg" alt="Usuń" className="cart-item-remove"
                                          title="Usuń"/>
                                 </div>
