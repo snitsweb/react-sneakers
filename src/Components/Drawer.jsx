@@ -1,6 +1,34 @@
 import React from 'react'
+import Info from "./Info";
+import axios from "axios";
+import {useCart} from "../hooks/useCart";
 
 function Drawer({onCloseCart, onRemove, items = []}) {
+
+    const {cartItems, setCartItems, totalPrice, } = useCart()
+    const [isOrderComplete, setIsOrderComplete] = React.useState(false)
+    const [orderId, setOrderId] = React.useState(0)
+    const [isLoading, setIsLoading] = React.useState(false)
+
+
+    const onClickOrder = async () => {
+        try{
+            setIsLoading(true)
+            const {data} = await axios.post('https://60e636ff086f730017a6feca.mockapi.io/orders', {items : cartItems})
+
+            setIsOrderComplete(true)
+            setCartItems([])
+            setOrderId(data.id)
+
+            cartItems.length !== 0 &&  cartItems.forEach(item => axios.delete(`https://60e636ff086f730017a6feca.mockapi.io/cart/${item.id}`))
+
+        } catch (err) {
+            alert('Błąd w trakcie złóżenia zamowienia')
+            console.log(err)
+        }
+
+        setIsLoading(false)
+    }
 
     return (
         <div className="overlay">
@@ -10,17 +38,10 @@ function Drawer({onCloseCart, onRemove, items = []}) {
                     <img onClick={onCloseCart} src="/img/remove-active.svg" alt="Usuń" className="cart-close"
                          title="Zamknij"/>
                 </div>
-                {items.length === 0 ? <div className="cart_empty">
-                    <img src="/img/empty-cart.png" alt="Empty box" className="cart_empty_img"/>
-                    <h4 className="cart_empty_title">Koszyk jest pusty</h4>
-                    <p className="cart_empty_text">
-                        Dodaj co najmniej jedną parę trampek do zamówienia.
-                    </p>
-                    <button onClick={onCloseCart} className="cart_empty_btn">
-                        <img src="/img/arrow.svg" alt="Arrow" className="cart_empty_btn_img"/>
-                        Wróć
-                    </button>
-                </div> : <div className="cart_items_wr">
+                {items.length === 0 ? <Info image={isOrderComplete ?'/img/completeCart.png' : '/img/empty-cart.png' }
+                                            title={isOrderComplete ? 'Zamowinie zostało złożone' : 'Koszyk jest pusty' }
+                                            description={isOrderComplete ? `Twoje zamówienie # ${orderId} zostanie wkrótce dostarczone kurierem` : 'Dodaj co najmniej jedną parę trampek do zamówienia.'}
+                /> : <div className="cart_items_wr">
                     <div className="cart-items">
                         {items.filter((el) => !(JSON.stringify(el) === '{}')).map((item) => {
                             return (
@@ -46,14 +67,14 @@ function Drawer({onCloseCart, onRemove, items = []}) {
                             <li>
                                 <span>Cena:</span>
                                 <div></div>
-                                <b>600zł.</b>
+                                <b>{totalPrice} zł.</b>
                             </li>
                             <li><span>Podatek 5%:</span>
                                 <div></div>
-                                <b>30zł.</b>
+                                <b>{totalPrice * .05} zł.</b>
                             </li>
                         </ul>
-                        <button className="drawer-btn">Złóż zamówienie
+                        <button onClick={onClickOrder} className={`drawer-btn ${isLoading && 'disable'}`}>Złóż zamówienie
                             <img src="/img/arrow.svg" alt="Arrow"/>
                         </button>
                     </div>

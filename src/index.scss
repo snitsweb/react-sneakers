@@ -315,6 +315,15 @@ body {
     .drawer-btn{
       position: relative;
 
+      &.disable{
+        cursor: default;
+        background-color: #bebebe;
+
+        &:hover{
+          background: #bebebe;
+        }
+      }
+
       &:hover{
         img{
           transform: translateX(5px);

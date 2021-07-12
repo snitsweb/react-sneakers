@@ -6,6 +6,7 @@ import Drawer from "./Components/Drawer";
 import Home from "./Pages/Home";
 import Favourites from "./Pages/Favourites";
 import AppContext from "./context";
+import Orders from "./Pages/Orders";
 
 
 function App() {
@@ -32,15 +33,15 @@ function App() {
         fetchData()
     }, [])
 
-    const onAddToCart = (obj) => {
+    const onAddToCart = async (obj) => {
         try {
             const searchObj = cartItems.find((item, index) => item.itemId === obj.itemId)
             if(searchObj){
                 axios.delete(`https://60e636ff086f730017a6feca.mockapi.io/cart/${searchObj.id}`)
                 setCartItems(prev => prev.filter(item => item.itemId !== obj.itemId))
             } else {
-                setCartItems(prev => [...prev, obj])
-                axios.post('https://60e636ff086f730017a6feca.mockapi.io/cart', obj)
+                const {data} = await axios.post('https://60e636ff086f730017a6feca.mockapi.io/cart', obj)
+                setCartItems(prev => [...prev, data])
             }
 
         } catch (err) {
@@ -56,8 +57,9 @@ function App() {
 
     const onAddFavourite = (obj) => {
         try {
-            if (favourites.find(item => item.itemId === obj.itemId)) {
-                axios.delete(`https://60e636ff086f730017a6feca.mockapi.io/favourite/${obj.id}`)
+            const searchItem = favourites.find(item => Number(item.itemId) === Number(obj.itemId));
+            if (searchItem) {
+                axios.delete(`https://60e636ff086f730017a6feca.mockapi.io/favourite/${searchItem.id}`)
                 setFavourites(prev => prev.filter(item => item.itemId !== obj.itemId))
             } else {
                 axios.post('https://60e636ff086f730017a6feca.mockapi.io/favourite/', obj)
@@ -74,8 +76,12 @@ function App() {
         return cartItems.some(cartItem => Number(cartItem.itemId) === Number(item.itemId))
     }
 
+    const isItemFavourited = (item) => {
+        return favourites.some(card => Number(card.itemId) === Number(item.itemId))
+    }
+
     return (
-        <AppContext.Provider value={{cartItems, favourites, items, setCartItems, isItemAdded}}>
+        <AppContext.Provider value={{cartItems, favourites, items, setCartItems, isItemAdded, isItemFavourited, onAddFavourite, setCartOpened}}>
             <div className="wrapper">
                 {cartOpened &&
                 <Drawer onRemove={onAddToCart} items={cartItems} onCloseCart={() => setCartOpened(false)}
@@ -98,6 +104,9 @@ function App() {
                                     onAddFavourite={onAddFavourite}
                                     onAddToCar={onAddToCart}
                         />
+                    </Route>
+                    <Route path="/orders">
+                        <Orders/>
                     </Route>
 
                 </main>

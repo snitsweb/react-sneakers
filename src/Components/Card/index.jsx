@@ -14,8 +14,8 @@ function Card({
                   favourited = false,
                   loading = false
               }) {
-    const {isItemAdded} = React.useContext(AppContext)
-    const [isFavourite, setIsFavourite] = React.useState(favourited)
+    const {isItemAdded, isItemFavourited} = React.useContext(AppContext)
+    const [isFavourite, setIsFavourite] = React.useState(isItemFavourited({itemId}))
 
     const handleAdd = () => {
         onPlus({img, price, name, itemId, id})
@@ -47,7 +47,7 @@ function Card({
                 </ContentLoader> :
                 <React.Fragment>
                     <div className={styles.card_like_btn} onClick={handleFavourite}>
-                        <img src={isFavourite ? '/img/card-liked.svg' : '/img/card-unliked.svg'} alt="Unliked"
+                        <img src={isItemFavourited({itemId}) ? '/img/card-liked.svg' : '/img/card-unliked.svg'} alt="Unliked"
                              title='Dodaj do listy życzeń'/>
                     </div>
                     <img src={img} alt="Adidas" width={133} height={112}/>
