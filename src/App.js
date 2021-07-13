@@ -19,15 +19,23 @@ function App() {
 
     React.useEffect(() => {
         async function fetchData() {
-            setIsLoading(true)
-            const itemsResponse = await axios.get('https://60e636ff086f730017a6feca.mockapi.io/items')
-            const cartResponse = await axios.get('https://60e636ff086f730017a6feca.mockapi.io/cart')
-            const favouritesResponse = await axios.get('https://60e636ff086f730017a6feca.mockapi.io/favourite')
+            try{
+                setIsLoading(true)
+                const [itemsResponse, cartResponse, favouritesResponse] = await Promise.all([
+                    axios.get('https://60e636ff086f730017a6feca.mockapi.io/items'),
+                    axios.get('https://60e636ff086f730017a6feca.mockapi.io/cart'),
+                    axios.get('https://60e636ff086f730017a6feca.mockapi.io/favourite')
+                ])
 
-            setCartItems(cartResponse.data)
-            setFavourites(favouritesResponse.data)
-            setItems(itemsResponse.data)
-            setIsLoading(false)
+                setCartItems(cartResponse.data)
+                setFavourites(favouritesResponse.data)
+                setItems(itemsResponse.data)
+                setIsLoading(false)
+            } catch (err) {
+                alert("Nie udało się pobrać danych z serwera")
+                console.log(err)
+            }
+
         }
 
         fetchData()
@@ -80,12 +88,12 @@ function App() {
         return favourites.some(card => Number(card.itemId) === Number(item.itemId))
     }
 
+
+
     return (
         <AppContext.Provider value={{cartItems, favourites, items, setCartItems, isItemAdded, isItemFavourited, onAddFavourite, setCartOpened}}>
             <div className="wrapper">
-                {cartOpened &&
-                <Drawer onRemove={onAddToCart} items={cartItems} onCloseCart={() => setCartOpened(false)}
-                />}
+                    <Drawer onRemove={onAddToCart} items={cartItems} onCloseCart={() => setCartOpened(false)} opened={cartOpened}/>
                 <Header onClickCart={() => setCartOpened(true)}/>
                 <main>
                     <Route path="/" exact>

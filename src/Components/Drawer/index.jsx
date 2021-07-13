@@ -1,9 +1,12 @@
 import React from 'react'
-import Info from "./Info";
+import Info from "../Info";
 import axios from "axios";
-import {useCart} from "../hooks/useCart";
 
-function Drawer({onCloseCart, onRemove, items = []}) {
+import {useCart} from "../../hooks/useCart";
+
+import styles from "./Drawer.module.scss"
+
+function Drawer({onCloseCart, onRemove, items = [], opened}) {
 
     const {cartItems, setCartItems, totalPrice, } = useCart()
     const [isOrderComplete, setIsOrderComplete] = React.useState(false)
@@ -31,38 +34,38 @@ function Drawer({onCloseCart, onRemove, items = []}) {
     }
 
     return (
-        <div className="overlay">
-            <div className="drawer">
-                <div className="title-wrapper">
-                    <h2 className="title">Koszyk</h2>
-                    <img onClick={onCloseCart} src="/img/remove-active.svg" alt="Usuń" className="cart-close"
+        <div className={`${styles.overlay} ${opened ? styles.visible : ''}`}>
+            <div className={`${styles.drawer} ${opened ? styles.active : ''}`}>
+                <div className={styles['title-wrapper']}>
+                    <h2 className={styles.title}>Koszyk</h2>
+                    <img onClick={onCloseCart} src="/img/remove-active.svg" alt="Usuń" className={styles['cart-close']}
                          title="Zamknij"/>
                 </div>
                 {items.length === 0 ? <Info image={isOrderComplete ?'/img/completeCart.png' : '/img/empty-cart.png' }
                                             title={isOrderComplete ? 'Zamowinie zostało złożone' : 'Koszyk jest pusty' }
                                             description={isOrderComplete ? `Twoje zamówienie # ${orderId} zostanie wkrótce dostarczone kurierem` : 'Dodaj co najmniej jedną parę trampek do zamówienia.'}
-                /> : <div className="cart_items_wr">
-                    <div className="cart-items">
+                /> : <div className={styles.cart_items_wr}>
+                    <div className={styles['cart-items']}>
                         {items.filter((el) => !(JSON.stringify(el) === '{}')).map((item) => {
                             return (
-                                <div className="cart-item" key={item.img + item.price + item.name}>
-                                    <img src={item.img} alt="" className="cart-item-img"/>
-                                    <div className="cart-item-desc">
-                                        <p className="cart-item-title">
+                                <div className={styles['cart-item']} key={item.img + item.price + item.name}>
+                                    <img src={item.img} alt={item.name} className={styles['cart-item-img']}/>
+                                    <div className={styles['cart-item-desc']}>
+                                        <p className={styles['cart-item-title']}>
                                             {item.name}
                                         </p>
-                                        <p className="cart-item-price">{item.price} zł.</p>
+                                        <p className={styles['cart-item-price']}>{item.price} zł.</p>
                                     </div>
                                     <img onClick={() => {
                                         onRemove(item)
-                                    }} src="/img/remove-active.svg" alt="Usuń" className="cart-item-remove"
+                                    }} src="/img/remove-active.svg" alt="Usuń" className={styles['cart-item-remove']}
                                          title="Usuń"/>
                                 </div>
                             )
                         })}
 
                     </div>
-                    <div className="drawer-footer">
+                    <div className={styles['drawer-footer']}>
                         <ul>
                             <li>
                                 <span>Cena:</span>
@@ -74,7 +77,7 @@ function Drawer({onCloseCart, onRemove, items = []}) {
                                 <b>{totalPrice * .05} zł.</b>
                             </li>
                         </ul>
-                        <button onClick={onClickOrder} className={`drawer-btn ${isLoading && 'disable'}`}>Złóż zamówienie
+                        <button onClick={onClickOrder} className={`${styles['drawer-btn']} ${isLoading && 'disable'}`}>Złóż zamówienie
                             <img src="/img/arrow.svg" alt="Arrow"/>
                         </button>
                     </div>

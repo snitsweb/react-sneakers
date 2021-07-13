@@ -7,11 +7,18 @@ function Orders({onAddToCart, isFavourited = false}) {
     const {onAddFavourite, isItemFavourited} = React.useContext(AppContext)
 
     const [orders, setOrders] = React.useState([])
+    const [isLoading, setIsLoading] = React.useState(true)
 
     React.useEffect(() => {
         (async () => {
-            const {data} = await axios.get('https://60e636ff086f730017a6feca.mockapi.io/orders/')
-            setOrders(data.reduce((prev,obj) => [...prev, ...obj.items], []))
+            try{
+                const {data} = await axios.get('https://60e636ff086f730017a6feca.mockapi.io/orders/')
+                setOrders(data.reduce((prev,obj) => [...prev, ...obj.items], []))
+                setIsLoading(false)
+            } catch (err) {
+                console.log(err)
+            }
+
         })()
     }, [])
     return (
@@ -25,12 +32,11 @@ function Orders({onAddToCart, isFavourited = false}) {
 
                     <div className="content-cards">
 
-                        {orders.map((item, index) => (
+                        {(isLoading? [...Array(8)] : orders).map((item, index) => (
                             <Card
                                 key = {index}
-                                onFavourite={(obj) => onAddFavourite(obj)}
-                                onPlus={(obj) => onAddToCart(obj)}
                                 favourited = {isItemFavourited(item)}
+                                loading = {isLoading}
                                 {...item}
                             />
                         ))}
