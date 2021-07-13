@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="314a26f6-c5d0-48b0-a9e1-30278e95eba4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Components/Drawer/Drawer.module.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Card/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Card/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Components/Drawer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/Drawer/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Orders.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Orders.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +60,7 @@
       <option name="presentableId" value="Default" />
       <updated>1626125420678</updated>
       <workItem from="1626125432784" duration="7813000" />
-      <workItem from="1626199853634" duration="6204000" />
+      <workItem from="1626199853634" duration="8903000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed bugs with Cart and Favourite items">
       <created>1626133143267</created>
