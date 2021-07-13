@@ -96,26 +96,26 @@ function App() {
                     <Drawer onRemove={onAddToCart} items={cartItems} onCloseCart={() => setCartOpened(false)} opened={cartOpened}/>
                 <Header onClickCart={() => setCartOpened(true)}/>
                 <main>
-                    <Route path="" exact>
-                        <Home searchValue={searchValue}
-                              onChangeSearchInput={onChangeSearchInput}
-                              setSearchValue={setSearchValue}
-                              onAddFavourite={onAddFavourite}
-                              onAddToCart={onAddToCart}
-                              items={items}
-                              cartItems={cartItems}
-                              isLoading = {isLoading}
-                        />
-                    </Route>
-                    <Route path="favourites">
-                        <Favourites
-                                    onAddFavourite={onAddFavourite}
-                                    onAddToCar={onAddToCart}
-                        />
-                    </Route>
-                    <Route path="orders">
-                        <Orders/>
-                    </Route>
+                        <Route path="/react-sneakers/" exact>
+                            <Home searchValue={searchValue}
+                                  onChangeSearchInput={onChangeSearchInput}
+                                  setSearchValue={setSearchValue}
+                                  onAddFavourite={onAddFavourite}
+                                  onAddToCart={onAddToCart}
+                                  items={items}
+                                  cartItems={cartItems}
+                                  isLoading = {isLoading}
+                            />
+                        </Route>
+                        <Route path="/react-sneakers/favourites" >
+                            <Favourites
+                                onAddFavourite={onAddFavourite}
+                                onAddToCar={onAddToCart}
+                            />
+                        </Route>
+                        <Route path="/react-sneakers/orders" >
+                            <Orders/>
+                        </Route>
 
                 </main>
 

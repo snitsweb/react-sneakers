@@ -35,7 +35,7 @@ function Orders({onAddToCart, isFavourited = false}) {
                         {(isLoading? [...Array(8)] : orders).map((item, index) => (
                             <Card
                                 key = {index}
-                                favourited = {isItemFavourited(item)}
+                                favourited = {!isLoading && isItemFavourited(item)}
                                 loading = {isLoading}
                                 {...item}
                             />
