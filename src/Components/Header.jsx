@@ -9,7 +9,7 @@ function Header(props) {
         <header className="header">
             <div className="container">
                 <div className="header-inner">
-                    <Link to="/">
+                    <Link to="">
                         <div className="logo">
                             <img width={40} height={40} className="logo-img" src="img/logo.png" alt="Logotype"/>
                             <div className="logoinfo">
@@ -26,13 +26,13 @@ function Header(props) {
                             <span className="list-item-text">{totalPrice} zł.</span>
                         </li>
                         <li className="list-item">
-                            <Link to="/favourites">
+                            <Link to="favourites">
                                 <img className="list-item-img" src="img/favorite.svg" width={18} height={18}
                                      alt="favorite"/>
                             </Link>
                         </li>
                         <li className="list-item">
-                            <Link to="/orders">
+                            <Link to="orders">
                                 <img className="list-item-img" src="img/union.svg" width={18} height={18}
                                      alt="My account"/>
                             </Link>
