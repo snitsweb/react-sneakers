@@ -96,7 +96,7 @@ function App() {
                     <Drawer onRemove={onAddToCart} items={cartItems} onCloseCart={() => setCartOpened(false)} opened={cartOpened}/>
                 <Header onClickCart={() => setCartOpened(true)}/>
                 <main>
-                    <Route path="/" exact>
+                    <Route path="" exact>
                         <Home searchValue={searchValue}
                               onChangeSearchInput={onChangeSearchInput}
                               setSearchValue={setSearchValue}
@@ -107,13 +107,13 @@ function App() {
                               isLoading = {isLoading}
                         />
                     </Route>
-                    <Route path="/favourites">
+                    <Route path="favourites">
                         <Favourites
                                     onAddFavourite={onAddFavourite}
                                     onAddToCar={onAddToCart}
                         />
                     </Route>
-                    <Route path="/orders">
+                    <Route path="orders">
                         <Orders/>
                     </Route>
 

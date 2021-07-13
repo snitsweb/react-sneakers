@@ -38,10 +38,10 @@ function Drawer({onCloseCart, onRemove, items = [], opened}) {
             <div className={`${styles.drawer} ${opened ? styles.active : ''}`}>
                 <div className={styles['title-wrapper']}>
                     <h2 className={styles.title}>Koszyk</h2>
-                    <img onClick={onCloseCart} src="/img/remove-active.svg" alt="Usuń" className={styles['cart-close']}
+                    <img onClick={onCloseCart} src="img/remove-active.svg" alt="Usuń" className={styles['cart-close']}
                          title="Zamknij"/>
                 </div>
-                {items.length === 0 ? <Info image={isOrderComplete ?'/img/completeCart.png' : '/img/empty-cart.png' }
+                {items.length === 0 ? <Info image={isOrderComplete ?'img/completeCart.png' : 'img/empty-cart.png' }
                                             title={isOrderComplete ? 'Zamowinie zostało złożone' : 'Koszyk jest pusty' }
                                             description={isOrderComplete ? `Twoje zamówienie # ${orderId} zostanie wkrótce dostarczone kurierem` : 'Dodaj co najmniej jedną parę trampek do zamówienia.'}
                 /> : <div className={styles.cart_items_wr}>
@@ -58,7 +58,7 @@ function Drawer({onCloseCart, onRemove, items = [], opened}) {
                                     </div>
                                     <img onClick={() => {
                                         onRemove(item)
-                                    }} src="/img/remove-active.svg" alt="Usuń" className={styles['cart-item-remove']}
+                                    }} src="img/remove-active.svg" alt="Usuń" className={styles['cart-item-remove']}
                                          title="Usuń"/>
                                 </div>
                             )
@@ -78,7 +78,7 @@ function Drawer({onCloseCart, onRemove, items = [], opened}) {
                             </li>
                         </ul>
                         <button onClick={onClickOrder} className={`${styles['drawer-btn']} ${isLoading && 'disable'}`}>Złóż zamówienie
-                            <img src="/img/arrow.svg" alt="Arrow"/>
+                            <img src="img/arrow.svg" alt="Arrow"/>
                         </button>
                     </div>
                 </div>

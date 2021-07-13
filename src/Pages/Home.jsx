@@ -30,11 +30,11 @@ function Home(props) {
                     <div className="content-title-wrapper">
                         <h1 className="title">{props.searchValue ? `Поиск по запросу: ${props.searchValue}` : 'Wszystkie adidasy'}</h1>
                         <div className="search-panel">
-                            <img src="/img/search.svg" alt="Search" className="search-icon"/>
+                            <img src="img/search.svg" alt="Search" className="search-icon"/>
                             <input onChange={props.onChangeSearchInput} type="text" value={props.searchValue}
                                    placeholder="Szukaj..."/>
                             {props.searchValue &&
-                            <img src="/img/remove-active.svg" onClick={() => props.setSearchValue('')}
+                            <img src="img/remove-active.svg" onClick={() => props.setSearchValue('')}
                                  alt="Clear input" className="clear_btn"/>}
                         </div>
                     </div>

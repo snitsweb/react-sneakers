@@ -47,7 +47,7 @@ function Card({
                 </ContentLoader> :
                 <React.Fragment>
                     {onFavourite && <div className={styles.card_like_btn} onClick={handleFavourite}>
-                        <img src={isItemFavourited({itemId}) ? '/img/card-liked.svg' : '/img/card-unliked.svg'} alt="Unliked"
+                        <img src={isItemFavourited({itemId}) ? 'img/card-liked.svg' : 'img/card-unliked.svg'} alt="Unliked"
                              title='Dodaj do listy życzeń'/>
                     </div>}
                     <img src={img} alt="Adidas" width={133} height={112}/>
@@ -64,7 +64,7 @@ function Card({
                 </span>
                         </div>
                         {onPlus && <button className={styles.card_btn} onClick={handleAdd}>
-                            <img src={isItemAdded({itemId}) ? '/img/btn-added.svg' : '/img/btn-add.svg'} alt="Add to cart" width={32}
+                            <img src={isItemAdded({itemId}) ? 'img/btn-added.svg' : 'img/btn-add.svg'} alt="Add to cart" width={32}
                                  height={32} title='Dodaj do koszyka'/>
                         </button>}
                     </div>
